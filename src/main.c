@@ -17,6 +17,12 @@ int main () {
         readData();
         break;
     case 3:
+        showAll();
+        break;
+    case 4:
+        modifyData();
+        break;
+    case 5:
         exit(1);
         break;
     default:
