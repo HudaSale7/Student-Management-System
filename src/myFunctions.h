@@ -1,17 +1,21 @@
 #include <stdio.h>
 #include <string.h>
 
+//file name
+
 FILE *studentFile;
 
+// show all option to the user
 int menu () {
     int option;
-    printf("\n\t\t\t\t\t\tStudent Management System \n\n");
+    printf("\n\n\n\n\t\t\t\t\t\tStudent Management System \n\n");
     printf("\t\t\t\t\t---------------------------------------\n\n");
     printf("\t\t\t\t\t\t1. Add Student\n");
     printf("\t\t\t\t\t\t2. Individual View\n");
     printf("\t\t\t\t\t\t3. Show All Students\n");
     printf("\t\t\t\t\t\t4. Modify Student\n");
-    printf("\t\t\t\t\t\t5. Exit\n\n");
+    printf("\t\t\t\t\t\t5. Remove Student\n");
+    printf("\t\t\t\t\t\t6. Exit\n\n");
     printf("\t\t\t\t\t---------------------------------------\n\n");
     printf("\t\t\t\t\t\tEnter Your Option --> ");
     scanf("%d", &option);
@@ -19,15 +23,18 @@ int menu () {
     return option;
 }
 
-
+//create, read or write file 
 void read_write_create () {
+    //in case the file was exist
         studentFile = fopen("database.bin", "rb+"); 
     if (studentFile == NULL)
     {
+        //if not then create new file
         studentFile = fopen("./database.bin", "wb+"); 
     }
 }
 
+//to read or write student data from the file
 typedef struct st
 {
     char name[50];
@@ -37,6 +44,7 @@ typedef struct st
 
 studentInfo student;
 
+//function to take any string from user
 void stringInput (char str[]) {
     fflush(stdin);
     char ch = 0;
@@ -50,7 +58,7 @@ void stringInput (char str[]) {
     str[i] = '\0';
 }
 
-
+//write student to the file
 void writeData () {
     while (1)
     {
@@ -63,36 +71,50 @@ void writeData () {
     printf("\n\t\tEnter department Name: ");
     stringInput(student.department);
 
+    //open file
     read_write_create();
+
+    //move the pointer to last element and write before it
     fseek(studentFile, 0, SEEK_END);
     fwrite(&student, sizeof(studentInfo), 1, studentFile);
 
+    //close file
+    fclose(studentFile);
+
+    //ask the user if he want to write again
     char ch;
     printf("\n\n\n\n\t\t\t\t\t\tAdd another student?(y/n)?");
     scanf("%c", &ch);
     system("cls"); 
     if (ch == 'n') break;
     }
-
-    fclose(studentFile);
 }
 
+//read student data from the file
 void readData () {
     while (1)
     {
     printf("\n\t\t\t\t\t\tStudent Management System \n\n");
     printf("\t\t\t\t\t---------------------------------------\n\n");
 
+    //ask the user to enter the student id which he is looking for
     int searchId;
     printf("\n\t\tEnter the ID: ");
     scanf("%d", &searchId);
 
+    //open file
     read_write_create();
+
+    //move the pointer to first element 
     rewind(studentFile);
+
+    //to check if he find the student or not
     int flag = 1;
+
+    //let's find our student !
     while (fread(&student, sizeof(studentInfo), 1, studentFile))
     {
-        if (searchId == student.id)
+        if (searchId == student.id) //if it match
         {
             flag = 0;
             printf("\n\n\t\t--> Student Name: %s" , student.name);
@@ -101,6 +123,7 @@ void readData () {
             break;
         } 
     }
+    //oops we cant find him !
     if (flag) {
             printf("\n\n\t\tStudent Not Found");
         }
@@ -115,6 +138,7 @@ void readData () {
     fclose(studentFile);
 }
 
+//print all student with their data
 void showAll () {
     while (1)
     {
@@ -130,6 +154,7 @@ void showAll () {
             printf("\n\t\t--> Id Number: %d" , student.id);
             printf("\n\t\t--> department Name: %s" , student.department);
         } 
+    //in case of file is empty
     if (flag) {
             printf("\n\n\t\t\t\t\t\tNo Student is Added Yet");
         }
@@ -143,13 +168,14 @@ void showAll () {
     if (ch == 'y') break;
     }}
 
-
+//to edit data in particular student 
 void modifyData () {
     while (1)
     {
     printf("\n\t\t\t\t\t\tStudent Management System \n\n");
     printf("\t\t\t\t\t---------------------------------------\n\n");
 
+    //same step for searching
     int searchId;
     printf("\n\t\tEnter the ID: ");
     scanf("%d", &searchId);
@@ -166,6 +192,8 @@ void modifyData () {
             printf("\n\n\t\t--> Student Name: %s" , student.name);
             printf("\n\t\t--> Id Number: %d" , student.id);
             printf("\n\t\t--> department Name: %s" , student.department);
+
+            //ask the user which data he want to modify
             printf("\n\n\n\n\n\t\t\t\t\t\tModify: 1. Name");
             printf("\n\t\t\t\t\t\t\t2. Id");
             printf("\n\t\t\t\t\t\t\t3. department");
@@ -175,6 +203,8 @@ void modifyData () {
             system("cls");
                 printf("\n\t\t\t\t\t\tStudent Management System \n\n");
                 printf("\t\t\t\t\t---------------------------------------\n\n");
+
+            //switch the option and modify the data in the file
             switch (option)
             {
             case 1:
@@ -192,6 +222,8 @@ void modifyData () {
             default:
                 break;
             }
+
+            //print student after modifying his data
             printf("\n\n\t\t\t\t\t---------------------------------------\n\n");
             printf("\n\n\t\t--> Student Name: %s", student.name);
             printf("\n\t\t--> Id Number: %d", student.id);
@@ -214,57 +246,99 @@ void modifyData () {
     }
 }
 
+//remove student
+void removeData () {
+    while (1)
+    {
+    printf("\n\t\t\t\t\t\tStudent Management System \n\n");
+    printf("\t\t\t\t\t---------------------------------------\n\n");
 
+    //search for him first
+    int searchId;
+    printf("\n\t\tEnter the ID: ");
+    scanf("%d", &searchId);
 
+    read_write_create();
+    rewind(studentFile);
+    int flag = 1;
+    while (fread(&student, sizeof(studentInfo), 1, studentFile))
+    {
+        if (searchId == student.id)
+        {
+            flag = 0;
+            printf("\n\n\t\t--> Student Name: %s" , student.name);
+            printf("\n\t\t--> Id Number: %d" , student.id);
+            printf("\n\t\t--> department Name: %s" , student.department);
 
+            //make sure he want to remove
+            char sure;
+            fflush(stdin);
+            printf("\n\n\n\n\n\t\t\t\t\t\tRemove Student?(y/n)?");
+            scanf("%c", &sure);
 
+            //in case he agree
+            if (sure == 'y')
+            {
+                //create new file to copy all student
+                FILE *copyFile;
+                copyFile = fopen("./copy.bin", "wb+");
 
+                //read all student from old file
+                rewind(studentFile);
+                while (fread(&student, sizeof(studentInfo), 1, studentFile)){
 
+                    if (searchId == student.id) continue; //expect this one 
+                    
+                    //write the rest of student
+                    fseek(copyFile, 0, SEEK_END);
+                    fwrite(&student, sizeof(studentInfo), 1, copyFile);
+                }
+                fclose(studentFile);
+                fclose(copyFile);
 
+                //delete old file and rename the new file to tha same name of the old file
+                remove("database.bin");
+                rename("./copy.bin", "./database.bin");
+                printf("\n\t\t\t\t\t\t\tDone !");
+            }
+        } 
+    }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-struct SMALL_RECT {
-    SHORT Left;
-    SHORT Top;
-    SHORT Right;
-    SHORT Bottom;
-};
-
-void adjustWindowSize()
-{
-    struct SMALL_RECT test; 
-
-    HANDLE hStdout;
-    COORD coord;
-    BOOL ok;
-
-    hStdout = GetStdHandle(STD_OUTPUT_HANDLE);
-    coord.X = 100;
-    coord.Y = 50;
-    ok = SetConsoleScreenBufferSize(hStdout, coord);
-
-    test.Left = 0;
-    test.Top = 0;
-    test.Right = coord.X-1;
-    test.Bottom = coord.Y-1;
-
-    SetConsoleWindowInfo(hStdout, ok, &test);
-
+        if (flag) {
+            printf("\n\n\t\tStudent Not Found");
+        }
+    fclose(studentFile);
+    fflush(stdin);
+    char ch;
+    printf("\n\n\n\n\t\t\t\t\t\tRemove another student?(y/n)?");
+    scanf("%c", &ch);
+    system("cls"); 
+    if (ch == 'n') break;
+    }
+    
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

@@ -23,12 +23,14 @@ int main () {
         modifyData();
         break;
     case 5:
+        removeData ();
+        break;
+    case 6:
         exit(1);
         break;
     default:
+        printf("\n\n\t\t\t\t\t\tWrong Number ! Please Try Again");
         break;
     }}
-    getchar();
-    system("pause");
     return 0;
 }
