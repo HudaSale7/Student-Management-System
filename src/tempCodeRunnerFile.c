@@ -1,1 +1,0 @@
-studentFile = fopen("database.bin", "wb+");
