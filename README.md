@@ -1,2 +1,3 @@
 # Student-Managment-System
-Handling students information and store them
+
+- Student Managment System ( **C programmed** ) using basic C functions.
