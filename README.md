@@ -6,10 +6,13 @@
  
 ## Some screenshots 
 - Options menu.
+
 ![menu](https://user-images.githubusercontent.com/109099521/185830386-a655efd6-5ef7-4a5d-915c-4a03285e5324.PNG)
 
 - adding new student.
-![all](https://user-images.githubusercontent.com/109099521/185830489-74f92764-b354-4dfc-82bc-0ebc57a086c6.PNG)
+
+![add](https://user-images.githubusercontent.com/109099521/185830604-732274be-fbe8-476d-a41f-8052cf0430ce.PNG)
+
 
 
 
