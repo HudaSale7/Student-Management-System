@@ -23,7 +23,8 @@
 
 - Removing student from the file
 
-![remove](https://user-images.githubusercontent.com/109099521/185831128-afe6224c-ead4-46aa-aab0-73a15ed7a019.PNG)
+![remove](https://user-images.githubusercontent.com/109099521/185832202-c9aa4b4b-b9ce-4b85-90b9-286e8b683191.PNG)
+
 
 
 
