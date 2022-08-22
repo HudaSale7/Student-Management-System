@@ -5,23 +5,23 @@
 - All data entered by the user will be store in a file for later access.
  
 ## Some screenshots 
-- Options menu.
+- Option menu
 
 ![menu](https://user-images.githubusercontent.com/109099521/185830386-a655efd6-5ef7-4a5d-915c-4a03285e5324.PNG)
 
-- adding a new student.
+- Adding a new student
 
 ![add](https://user-images.githubusercontent.com/109099521/185830604-732274be-fbe8-476d-a41f-8052cf0430ce.PNG)
 
-- Show all students in the file.
+- Show all students in the file
 
 ![all](https://user-images.githubusercontent.com/109099521/185830800-7a08cc8c-62a7-4c0d-848b-9bd600738ae2.PNG)
 
-- Modifying student.
+- Modifying student
 
 ![modify](https://user-images.githubusercontent.com/109099521/185830910-b1e153d6-5269-49a6-88e9-3dc17bab43a4.PNG)
 
-- Removing student from the file.
+- Removing student from the file
 
 ![remove](https://user-images.githubusercontent.com/109099521/185831128-afe6224c-ead4-46aa-aab0-73a15ed7a019.PNG)
 
