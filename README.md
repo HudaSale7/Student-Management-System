@@ -1,6 +1,6 @@
 # Student-Management-System
 
-- Student Management System ( **C programmed** ).
+- Student Management System using C language.
 - User will get some options to either add, view, modify, or remove student.
 - All data entered by the user will be store in a file for later access.
  
